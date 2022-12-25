@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800&display=swap");
+:root {
+  font-family:'Poppins', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  --purple: #7f39fb;
+  --light-purple: #f2ebff;
+  --dark-purple: #7a0f95;
+}
+
+
+
+.bg-purple {background-color: var(--purple);}
+.bg-purple:hover{
+  background-color: var(--purple);
+}
+.bg-light-purple {background-color: var(--light-purple);}
+.bg-dark-purple {background-color: var(--dark-purple);}
+
+.txt-purple {color: var(--purple);}
+.txt-light-purple {color: var(--light-purple);}
+.txt-dark-purple {color: var(--dark-purple);}
+
+.login-img-bg {
+  background-image: url(./assets/images/jogging.png);
+  width: 40%;
+  height: 260px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* sign-up */
+
+/* dashboard */
+.min-h-72 {
+  min-height: 72px;
+}
+.user-img {
+  width: 56px;
+  object-fit: cover;
+}
+
+/* activity card */
+.activity-card {
+  padding: 24px;
+  /* width: 480px; */
+  height: 220px;
+  border-radius: 16px;
+  background-color: var(--light-purple);
+  /* background-image: linear-gradient(to right, #6a11cb 0%, #995FFC 100%); */
+  box-shadow: 8px 8px 12px #0000002e;    
+}
+.activity-card:hover {
+  background-color: #ddccfb;
+  box-shadow: 10px 10px 16px #00000047;
+}
+.card-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+.activity-description-card {
+  padding: 24px;
+  /* width: 480px; */
+  height: 86px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background-color: var(--light-purple);
+  /* background-image: linear-gradient(to right, #6a11cb 0%, #995FFC 100%); */
+  /* box-shadow: 8px 8px 12px #0000002e;  */
+}
+.description-card-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.description {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  box-shadow: 0px 8px 12px #0000002e;
+}
+.date-badge {
+  background-color: var(--dark-purple);
+  color: white;
+  border-radius: 16px;
+}
+.duration-badge {
+  background-color: var(--dark-purple);
+  color: white;
+  border-radius: 16px;
+}
+
+/* form section */
+.form-section {
+  margin-top: 5rem;
+  background: var(--light-purple);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0px 8px 12px #0000002e
+}
+
+.min-w-60 {min-width: 60%;}

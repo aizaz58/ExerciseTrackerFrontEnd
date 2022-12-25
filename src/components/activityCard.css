@@ -1,0 +1,18 @@
+.activity-card {
+    padding: 24px;
+    /* width: 480px; */
+    height: 220px;
+    border-radius: 16px;
+    background-color: var(--light-purple);
+    /* background-image: linear-gradient(to right, #6a11cb 0%, #995FFC 100%); */
+    box-shadow: 8px 8px 12px #0000002e;    
+  }
+  .activity-card:hover {
+    background-color: #ddccfb;
+    box-shadow: 10px 10px 16px #00000047;
+  }
+  .card-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  }
