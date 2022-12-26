@@ -36,12 +36,17 @@ export const activityApiSlice = apiSlice.injectEndpoints({
                 ...initialActivity,
             }
         }),
-        invalidatesTags: [
-            { type: 'Activity', id: "LIST" }
-        ]
+        providesTags: (result, err, arg) => {
+            if (result?.ids) {
+              return [
+                { type: "Activity", id: "List" },
+                ...result.ids.map((id) => ({ type: "Activity", id })),
+              ];
+            } else return [{ type: "Activity", id: "LIST" }];
+          },
     }),
     getActivity:builder.query({
-        query:({id})=>({
+        query:(id)=>({
             url:`/activity/${id}`,
             method:"GET"
         }),
@@ -50,22 +55,27 @@ export const activityApiSlice = apiSlice.injectEndpoints({
         ]
     }),
     deleteActivity:builder.mutation({
-        query:({id})=>({
+        query:(id)=>({
             url:`/activity/${id}`,
             method:"DELETE"
         }),
-        invalidatesTags: [
-            { type: 'Activity', id: "LIST" }
-        ]
+        providesTags: (result, err, arg) => {
+            if (result?.ids) {
+              return [
+                { type: "Activity", id: "List" },
+                ...result.ids.map((id) => ({ type: "Activity", id })),
+              ];
+            } else return [{ type: "Activity", id: "LIST" }];
+          },
     }),
     updateActivity:builder.mutation({
-        query:({id,activity})=>({
-            url:`/activity/${id}`,
+        query:(activity)=>({
+            url:`/activity/${activity._id}`,
             method:"PATCH",
             body:{...activity}
         }),
-        invalidatesTags: [
-            { type: 'Activity', id: "LIST" }
+        invalidatesTags: (result, error, arg) => [
+            { type: 'Activity', id: arg.id }
         ]
     })
 
@@ -73,5 +83,5 @@ export const activityApiSlice = apiSlice.injectEndpoints({
 });
 
 
-export const {useGetAllActivitiesQuery,useAddNewActivityMutation,useGetActivityQuery,useDeleteActivityMutation}=activityApiSlice
+export const {useGetAllActivitiesQuery,useAddNewActivityMutation,useGetActivityQuery,useDeleteActivityMutation,useUpdateActivityMutation}=activityApiSlice
 

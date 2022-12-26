@@ -6,6 +6,7 @@ import {FaCalendarAlt} from "react-icons/fa"
 import {IoIosClock} from "react-icons/io"
 import { format, parseISO } from 'date-fns'
 import { useNavigate } from 'react-router-dom'
+import ActivityIcon from './ActivityIcon'
 const ActivityCard = ({activity}) => {
     const navigate=useNavigate()
     const {date,description,name,duration,type,user,_id}=activity
@@ -24,8 +25,7 @@ navigate(`/activitydetail/${_id}`)
                     <div className="d-flex align-items-center justify-content-between">
                         <div className='d-flex gap-2'>
                         <div className=' fs-1 bg-purple text-white text-center p-3 card-icon d-flex align-items-center justify-content-center'>
-                            {type=="walk"?<FaWalking/>:type=="swim"?<FaSwimmer/>:type=="run"?<FaRunning/>:type=="hike"?<FaHiking/>:<IoBicycleSharp/>}
-
+                           <ActivityIcon type={type}/>
                         </div>
                             <span className="fs-2 fw-bold ps-3 align-self-center ">{type}</span>
                         </div>

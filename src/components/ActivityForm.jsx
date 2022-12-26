@@ -1,26 +1,43 @@
+import { format } from 'date-fns'
 import React, { useState ,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAddNewActivityMutation } from '../features/activity/activityApiSlice'
+import { useAddNewActivityMutation, useDeleteActivityMutation, useUpdateActivityMutation } from '../features/activity/activityApiSlice'
 
-const ActivityForm = ({origin}) => {
+const ActivityForm = ({origin,activity,fetch}) => {
 const [formData, setformData] = useState({name:"",description:"",type:"",date:"",duration:""})
 const [addNewActivity,{isLoading,isSuccess}]=useAddNewActivityMutation()
+const[updateActivity,{isLoading:updateLoading,isSuccess:updateSuccess}] =useUpdateActivityMutation()
+const[deleteActivity,{isloading:deleteLoading}]=useDeleteActivityMutation()
 const navigate=useNavigate()
+// const date=format(new Date(date),'yyyy-MM-dd')
+useEffect(() => {
+  if(activity){
+    setformData(activity)
+    
+  }
+}, [activity])
+let canSave
 const handleChange=(e)=>{
     const {name,value}=e.target
     
     setformData(prevData=>({...prevData,[name]:value}))
-}
-const canSave=[...Object.values(formData)].every(Boolean)
+    console.log(formData)
+     canSave=[...Object.values(formData)].every(Boolean)
+  }
 const handleSubmit=async(e)=>{
     debugger
     e.preventDefault()
-    console.log(formData)
-
-
-await addNewActivity({...formData})
+    console.log({...formData})
+if(origin=='edit'){
+await updateActivity({...formData})
+fetch()
+//await deleteActivity(activity._id)
+}else{
+  await addNewActivity({...formData})
 }
 
+}
+if(updateLoading)<p>loading...</p>
 if(isLoading)<p>loading....</p>
 
 useEffect(() => {
@@ -76,7 +93,7 @@ navigate("/home")
                           </div>
                         </div>
                         <div className="col-12">
-                          <button className="btn  bg-purple" disabled={!canSave} type="submit">Add</button>
+                          <button className="btn  bg-purple"  type="submit">Add</button>
                         </div> 
                     </form>
     </div>

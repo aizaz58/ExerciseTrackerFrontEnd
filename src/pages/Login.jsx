@@ -70,13 +70,13 @@ if(!credientials.password){
 
 debugger
 try {
-  const {accessToken,user,message,statusText}=await login({...credientials}).unwrap()
+  const {accessToken,foundUser,message,statusText}=await login({...credientials}).unwrap()
   
     
   if(isSuccess){}
   if(isError){}
   
-    dispatch(setCredientials({accessToken,user}))
+    dispatch(setCredientials({accessToken,foundUser}))
     //setcredientials({email:null,password:null})
   
     navigate("/home")
