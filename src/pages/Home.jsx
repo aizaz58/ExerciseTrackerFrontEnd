@@ -13,7 +13,7 @@ const Home = () => {
  if(data){
 
 }
-  const {statusText,activities}=data
+ 
   
   return (
    <div className='container-fluid'>
@@ -26,14 +26,15 @@ const Home = () => {
             </div>
         </div>
 
-        <div className='row mt-5 px-5 gy-4' >
-        {isSuccess&& statusText==="ok"&& (
-          activities?.map(activity=>(
+        <div className='row mt-5 px-5 gy-4 text-center' >
+        {isSuccess&& data.statusText==="ok"&& (
+          data.activities?.map(activity=>(
     <ActivityCard  key={activity._id} activity={activity} />
 
           ))
         )}
-
+        
+{ (data==undefined)?<p>no activity found .please add new activity.</p>:""}
         </div>
 
     

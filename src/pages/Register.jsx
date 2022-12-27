@@ -1,11 +1,20 @@
 import React, { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate,  } from 'react-router-dom'
 import {AiFillEye,AiFillEyeInvisible} from "react-icons/ai"
+import {  useRegisterUserMutation } from '../features/auth/AuthApiSlice'
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+import { setCredientials } from '../features/auth/authSlice';
+import { useDispatch } from 'react-redux';
+  
 const Register = () => {
   const [formData, setformData] = useState({firstName:"",
   lastName:"",
   email:"",
   password:""})
+  const dispatch=useDispatch()
+  const navigate=useNavigate()
+  const [registerUser,{isLoading,isError,error,isSuccess}]=useRegisterUserMutation()
   const [confirmPwd, setconfirmPwd] = useState("")
    const [disable, setdisable] = useState(true)
    const [show, setShow] = useState(false)
@@ -18,7 +27,7 @@ const Register = () => {
    const nameRegex=/[a-zA-Z]{4,}/
    const emailRegex=/^\w+@\w{3,}.[a-zA-Z]{2,}$/
    const passwordRegex=/\w{6,}/
-  const handleSubmit=(e)=>{
+  const handleSubmit=async(e)=>{
 e.preventDefault()
 
 if(!nameRegex.test(formData.firstName)){
@@ -57,9 +66,31 @@ if(!nameRegex.test(formData.lastName)){
    passwordRef.current.classList.remove("is-invalid")
    passwordRef.current.classList.add("is-valid")
  }
+ debugger
+ try {
+   const {message,foundUser,accessToken}=await registerUser({...formData}).unwrap()
+   toast.success(message);
+     
+       dispatch(setCredientials({foundUser,accessToken}))
+       navigate("/home")
+     
+  
+ } catch (error) {
+  console.log(error)
+   toast.error(error.data.message)
+  if(error.status==409){
+    emailRef.current.focus()
+    emailRef.current.classList.add("is-invalid")
+  }
+  if(error.status==400){
+
+  }
+ }
+
+ 
 
 
-console.log("first")
+
   }
   const handleChange=(e)=>{
     const {name,value}=e.target
@@ -88,6 +119,8 @@ const handleShowPwd=(e)=>{
   setShow(!show)
   }
 }
+
+if(isLoading)<p>loading...</p>
   return (
     <div className="container-fluid bg-purple vh-100">
     <div className="row">

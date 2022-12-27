@@ -2,11 +2,27 @@ import React from 'react'
 import { FaPen, FaTrash, FaWalking } from 'react-icons/fa'
 import {FaCalendarAlt} from "react-icons/fa"
 import {IoIosClock} from "react-icons/io"
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { useDeleteActivityMutation } from '../../features/activity/activityApiSlice'
+import { showForm } from '../../features/featuresSlice'
 import dateFormat from '../../utils/dateFormat'
 import ActivityIcon from '../ActivityIcon'
-const ActivityDetailCard = ({name,type,description,duration,date,isFetching}) => {
-    if(isFetching)<p>fetcging....</p>
-    console.log(name)
+const ActivityDetailCard = ({name,type,description,duration,date,isFetching,setShow,_id}) => {
+    const[deleteActivity,{isloading,isSuccess}]=useDeleteActivityMutation()
+const dispatch=useDispatch()
+const navigate=useNavigate()
+const handleClickEdit=()=>{
+    dispatch(showForm())
+}
+
+const handleDelete=async()=>{
+await deleteActivity(_id)
+}
+   if(isloading)<p>deleting....</p>
+   if(isSuccess){
+    navigate("/home")
+   }
   return (
     <div class="col-12 px-0">
         <div class="activity-description-card d-flex align-items-center justify-content-between">
@@ -17,7 +33,7 @@ const ActivityDetailCard = ({name,type,description,duration,date,isFetching}) =>
             </div>
                 <span class="fs-2 fw-bold ps-3">{type}</span>
             </div>
-
+<div>{name}</div>
             <div class="d-flex align-items-center">
             
                 <p class="mb-0 me-5 px-3 py-1 date-badge"><FaCalendarAlt/> {dateFormat(date)}</p>
@@ -30,8 +46,8 @@ const ActivityDetailCard = ({name,type,description,duration,date,isFetching}) =>
 
                 <div className='d-flex gap-2 ms-1'>
 
-<FaPen className='text-primary  ' role="button"/>
-<FaTrash className=' text-danger' role="button"/>
+<FaPen className='text-primary  ' role="button" onClick={handleClickEdit}/>
+<FaTrash className=' text-danger' role="button" onClick={handleDelete} />
                 </div>
                
             </div>

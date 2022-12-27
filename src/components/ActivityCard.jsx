@@ -47,7 +47,7 @@ navigate(`/activitydetail/${_id}`)
                         <div className="d-flex flex-column align-items-end">
                             <IoIosClock/>
                             
-                            <p className="mb-0">{duration}</p>
+                            <p className="mb-0">{duration} mins </p>
                         </div>
                     </div>
                 </div>

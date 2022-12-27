@@ -11,13 +11,17 @@ export const activityApiSlice = apiSlice.injectEndpoints({
         return response.status == 200 && !result.isError;
       },
       keepUnusedDataFor: 10,
-      transformErrorResponse: (responseData) => {
-        const loadedActivities = responseData.map((activity) => {
+      transformResponse: (responseData) => {
+       const statusText= responseData.statusText
+        const activities = responseData.activities.map((activity) => {
           activity.id = activity._id;
           return activity;
         });
 
-        return activityAdaptor.setAll(initialState, loadedActivities);
+
+
+        debugger
+        return {activities,statusText}
       },
       providesTags: (result, err, arg) => {
         if (result?.ids) {
@@ -27,6 +31,17 @@ export const activityApiSlice = apiSlice.injectEndpoints({
           ];
         } else return [{ type: "Activity", id: "LIST" }];
       },
+
+
+
+
+
+     
+
+
+
+
+
     }),
     addNewActivity: builder.mutation({
         query: initialActivity => ({

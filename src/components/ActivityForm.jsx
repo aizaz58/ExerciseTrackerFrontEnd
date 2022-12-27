@@ -1,27 +1,44 @@
 import { format } from 'date-fns'
 import React, { useState ,useEffect} from 'react'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useAddNewActivityMutation, useDeleteActivityMutation, useUpdateActivityMutation } from '../features/activity/activityApiSlice'
+import { showForm } from '../features/featuresSlice'
+import formDateFormat from '../utils/formDateFormat'
 
 const ActivityForm = ({origin,activity,fetch}) => {
 const [formData, setformData] = useState({name:"",description:"",type:"",date:"",duration:""})
 const [addNewActivity,{isLoading,isSuccess}]=useAddNewActivityMutation()
 const[updateActivity,{isLoading:updateLoading,isSuccess:updateSuccess}] =useUpdateActivityMutation()
-const[deleteActivity,{isloading:deleteLoading}]=useDeleteActivityMutation()
+
 const navigate=useNavigate()
+const dispatch=useDispatch()
 // const date=format(new Date(date),'yyyy-MM-dd')
 useEffect(() => {
   if(activity){
+
+const newDate=formDateFormat(activity.date)
+
     setformData(activity)
+    setformData(prevData=>({...prevData,date:newDate}))
     
   }
 }, [activity])
+
+
+
 let canSave
 const handleChange=(e)=>{
     const {name,value}=e.target
-    
-    setformData(prevData=>({...prevData,[name]:value}))
-    console.log(formData)
+    // if(name==="date"){
+    //  
+    //   console.log(date)
+    //   setformData(prevData=>({...prevData,[name]:date}))
+    // }else{
+      
+      // }
+        setformData(prevData=>({...prevData,[name]:value}))
+      console.log(formData)
      canSave=[...Object.values(formData)].every(Boolean)
   }
 const handleSubmit=async(e)=>{
@@ -31,8 +48,9 @@ const handleSubmit=async(e)=>{
 if(origin=='edit'){
 await updateActivity({...formData})
 fetch()
-//await deleteActivity(activity._id)
+
 }else{
+  // const date=new Date(formData.date)
   await addNewActivity({...formData})
 }
 
@@ -93,7 +111,8 @@ navigate("/home")
                           </div>
                         </div>
                         <div className="col-12">
-                          <button className="btn  bg-purple"  type="submit">Add</button>
+
+                          <button className="btn  bg-purple"  type="submit">{origin==="edit"?"Update":"Add"}</button>
                         </div> 
                     </form>
     </div>
