@@ -10,93 +10,75 @@ export const activityApiSlice = apiSlice.injectEndpoints({
       validateStatus: (response, result) => {
         return response.status == 200 && !result.isError;
       },
-      keepUnusedDataFor: 10,
+      keepUnusedDataFor: 100,
       transformResponse: (responseData) => {
-       const statusText= responseData.statusText
+        const statusText = responseData.statusText;
         const activities = responseData.activities.map((activity) => {
           activity.id = activity._id;
           return activity;
         });
-
-
-
-        debugger
-        return {activities,statusText}
+activities.sort((a,b)=>new Date(b.date)- new Date(a.date))
+        return { activities, statusText };
       },
       providesTags: (result, err, arg) => {
-        if (result?.ids) {
+      
+        if (result?.activities) {
           return [
-            { type: "Activity", id: "List" },
-            ...result.ids.map((id) => ({ type: "Activity", id })),
+            { type: "Activity" },
+            ...result.activities.map((act) => ({
+              type: "Activity",
+              id: act.id,
+            })),
           ];
-        } else return [{ type: "Activity", id: "LIST" }];
+        } else return [{ type: "Activity" }];
       },
-
-
-
-
-
-     
-
-
-
-
-
     }),
     addNewActivity: builder.mutation({
-        query: initialActivity => ({
-            url: '/activity',
-            method: 'POST',
-            body: {
-                ...initialActivity,
-            }
-        }),
-        providesTags: (result, err, arg) => {
-            if (result?.ids) {
-              return [
-                { type: "Activity", id: "List" },
-                ...result.ids.map((id) => ({ type: "Activity", id })),
-              ];
-            } else return [{ type: "Activity", id: "LIST" }];
-          },
+      query: (initialActivity) => ({
+        url: "/activity",
+        method: "POST",
+        body: {
+          ...initialActivity,
+        },
+      }),
+      invalidatesTags: ["Activity"],
     }),
-    getActivity:builder.query({
-        query:(id)=>({
-            url:`/activity/${id}`,
-            method:"GET"
-        }),
-        invalidatesTags: [
-            { type: 'Activity', id: "LIST" }
-        ]
-    }),
-    deleteActivity:builder.mutation({
-        query:(id)=>({
-            url:`/activity/${id}`,
-            method:"DELETE"
-        }),
-        providesTags: (result, err, arg) => {
-            if (result?.ids) {
-              return [
-                { type: "Activity", id: "List" },
-                ...result.ids.map((id) => ({ type: "Activity", id })),
-              ];
-            } else return [{ type: "Activity", id: "LIST" }];
-          },
-    }),
-    updateActivity:builder.mutation({
-        query:(activity)=>({
-            url:`/activity/${activity._id}`,
-            method:"PATCH",
-            body:{...activity}
-        }),
-        invalidatesTags: (result, error, arg) => [
-            { type: 'Activity', id: arg.id }
-        ]
-    })
+    getActivity: builder.query({
+      query: (id) => ({
+        url: `/activity/${id}`,
+        method: "GET",
+      }),
+      keepUnusedDataFor: 90,
 
+      providesTags: (result, err, arg) => {
+        if (result.activity) {
+          return [{ type: "Activity", id: result.activity._id }];
+        }
+      },
+    }),
+    deleteActivity: builder.mutation({
+      query: (id) => ({
+        url: `/activity/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Activity"],
+    }),
+    updateActivity: builder.mutation({
+      query: (activity) => ({
+        url: `/activity/${activity._id}`,
+        method: "PATCH",
+        body: { ...activity },
+      }),
+
+      invalidatesTags: (result, error, arg) => [{ type: "Activity",id:arg.id}],
+    }),
   }),
 });
 
-
-export const {useGetAllActivitiesQuery,useAddNewActivityMutation,useGetActivityQuery,useDeleteActivityMutation,useUpdateActivityMutation}=activityApiSlice
-
+export const {
+  useGetAllActivitiesQuery,
+  useAddNewActivityMutation,
+  useGetActivityQuery,
+  useDeleteActivityMutation,
+  useUpdateActivityMutation,
+} = activityApiSlice;

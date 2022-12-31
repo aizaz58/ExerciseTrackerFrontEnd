@@ -6,14 +6,14 @@ import { useAddNewActivityMutation, useDeleteActivityMutation, useUpdateActivity
 import { showForm } from '../features/featuresSlice'
 import formDateFormat from '../utils/formDateFormat'
 
-const ActivityForm = ({origin,activity,fetch}) => {
+const ActivityForm = ({origin,activity}) => {
 const [formData, setformData] = useState({name:"",description:"",type:"",date:"",duration:""})
 const [addNewActivity,{isLoading,isSuccess}]=useAddNewActivityMutation()
 const[updateActivity,{isLoading:updateLoading,isSuccess:updateSuccess}] =useUpdateActivityMutation()
 
 const navigate=useNavigate()
 const dispatch=useDispatch()
-// const date=format(new Date(date),'yyyy-MM-dd')
+
 useEffect(() => {
   if(activity){
 
@@ -27,30 +27,25 @@ const newDate=formDateFormat(activity.date)
 
 
 
-let canSave
+
 const handleChange=(e)=>{
     const {name,value}=e.target
-    // if(name==="date"){
-    //  
-    //   console.log(date)
-    //   setformData(prevData=>({...prevData,[name]:date}))
-    // }else{
-      
-      // }
+  
         setformData(prevData=>({...prevData,[name]:value}))
-      console.log(formData)
-     canSave=[...Object.values(formData)].every(Boolean)
+      
+  
   }
 const handleSubmit=async(e)=>{
-    debugger
+    
     e.preventDefault()
-    console.log({...formData})
+  
 if(origin=='edit'){
+  
 await updateActivity({...formData})
-fetch()
+
 
 }else{
-  // const date=new Date(formData.date)
+
   await addNewActivity({...formData})
 }
 

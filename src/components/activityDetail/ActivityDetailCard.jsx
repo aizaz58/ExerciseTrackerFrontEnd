@@ -7,8 +7,9 @@ import { useNavigate } from 'react-router-dom'
 import { useDeleteActivityMutation } from '../../features/activity/activityApiSlice'
 import { showForm } from '../../features/featuresSlice'
 import dateFormat from '../../utils/dateFormat'
+import {motion} from "framer-motion"
 import ActivityIcon from '../ActivityIcon'
-const ActivityDetailCard = ({name,type,description,duration,date,isFetching,setShow,_id}) => {
+const ActivityDetailCard = ({name,type,description,duration,date,setShow,_id}) => {
     const[deleteActivity,{isloading,isSuccess}]=useDeleteActivityMutation()
 const dispatch=useDispatch()
 const navigate=useNavigate()
@@ -27,10 +28,10 @@ await deleteActivity(_id)
     <div class="col-12 px-0">
         <div class="activity-description-card d-flex align-items-center justify-content-between">
             <div className='d-flex align-items-center justify-center '>
-            <div className='fs-1 bg-purple text-white text-center p-2 description-card-icon d-flex align-items-center justify-center'>
+            <motion.div whileHover={{scale:1.10}} whileTap={{scale:0.8}}  className='fs-1 bg-purple text-white text-center p-2 description-card-icon d-flex align-items-center justify-center'>
 
             <ActivityIcon type={type}/>
-            </div>
+            </motion.div>
                 <span class="fs-2 fw-bold ps-3">{type}</span>
             </div>
 <div>{name}</div>
@@ -45,9 +46,14 @@ await deleteActivity(_id)
                 </div>
 
                 <div className='d-flex gap-2 ms-1'>
+<motion.div whileHover={{scale:1.15}} whileTap={{scale:0.8}} >
+<FaPen  className='text-primary  ' role="button" onClick={handleClickEdit}/>
 
-<FaPen className='text-primary  ' role="button" onClick={handleClickEdit}/>
+</motion.div>
+<motion.div whileHover={{scale:1.15}} whileTap={{scale:0.8}} >
 <FaTrash className=' text-danger' role="button" onClick={handleDelete} />
+
+</motion.div>
                 </div>
                
             </div>

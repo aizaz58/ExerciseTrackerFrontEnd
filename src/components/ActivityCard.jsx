@@ -7,6 +7,7 @@ import {IoIosClock} from "react-icons/io"
 import { format, parseISO } from 'date-fns'
 import { useNavigate } from 'react-router-dom'
 import ActivityIcon from './ActivityIcon'
+import {motion} from "framer-motion"
 const ActivityCard = ({activity}) => {
     const navigate=useNavigate()
     const {date,description,name,duration,type,user,_id}=activity
@@ -14,17 +15,17 @@ const ActivityCard = ({activity}) => {
     const dateFormat=format(new Date(date),'eee, dd MMM yyyy')
     
     const handleClick=()=>{
-        console.log("first")
+    
 
 navigate(`/activitydetail/${_id}`)
     }
   return (
   <>
-     <div className="col-4" onClick={handleClick}>
+     <motion.div whileHover={{scale:1.05}} whileTap={{scale:0.8}} className="col-4" onClick={handleClick}>
                 <div className="activity-card d-flex flex-column justify-content-between">
                     <div className="d-flex align-items-center justify-content-between">
                         <div className='d-flex gap-2'>
-                        <div className=' fs-1 bg-purple text-white text-center p-3 card-icon d-flex align-items-center justify-content-center'>
+                        <div whileHover={{scale:1.05}} whileTap={{scale:0.8}}  className=' fs-1 bg-purple text-white text-center p-3 card-icon d-flex align-items-center justify-content-center'>
                            <ActivityIcon type={type}/>
                         </div>
                             <span className="fs-2 fw-bold ps-3 align-self-center ">{type}</span>
@@ -51,7 +52,7 @@ navigate(`/activitydetail/${_id}`)
                         </div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
   </>
   )

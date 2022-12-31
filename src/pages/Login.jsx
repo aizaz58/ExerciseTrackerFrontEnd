@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { useLoginMutation } from '../features/auth/AuthApiSlice'
 import { setCredientials } from '../features/auth/authSlice'
 import { Watch } from 'react-loader-spinner'
+import { toast } from 'react-toastify'
 const Login = () => {
   const [show, setShow] = useState(false)
   const [credientials, setcredientials] = useState({email:"",password:""})
@@ -20,16 +21,7 @@ const navigate=useNavigate()
 useEffect(() => {
  emailRef.current.focus() 
 },[])
-useEffect(()=>{
 
- if(!emailRegex.test(credientials.email)){
-  emailRef.current.classList.remove("is-valid")
-  emailRef.current.classList.add("is-invalid")
-}else{
-  emailRef.current.classList.remove("is-invalid")
-  emailRef.current.classList.add("is-valid")
-}
-},[credientials.email])
 
 const [login,{isError,isLoading,error,isSuccess,data}]=useLoginMutation()
 const handleShowPwd=(e)=>{
@@ -78,7 +70,7 @@ try {
   
     dispatch(setCredientials({accessToken,foundUser}))
     //setcredientials({email:null,password:null})
-  
+  toast.success(message)
     navigate("/home")
   
 
@@ -99,6 +91,7 @@ try {
     return
    }else{
     console.log(error)
+   toast.error(error.data.message)
    } 
 }  
   

@@ -1,18 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { lazy, Suspense, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import ActivityCard from '../components/ActivityCard'
+
+ const ActivityCard=lazy(()=>delay(import ('../components/ActivityCard')))
+import HomeSkeleton from '../components/HomeSkeleton'
 
 import { useGetAllActivitiesQuery } from '../features/activity/activityApiSlice'
+import { setFetching } from '../features/featuresSlice'
 
 const Home = () => {
-
-  const {data,isLoading,isSuccess}=useGetAllActivitiesQuery()
+const dispatch=useDispatch()
+  const {data,isLoading,isSuccess,isFetching,}=useGetAllActivitiesQuery()
   
-  if(isLoading)return <p>loading...</p>
- console.log(data)
- if(data){
-
-}
+  if(isLoading)return <HomeSkeleton/>
+ 
+ 
  
   
   return (
@@ -27,9 +29,12 @@ const Home = () => {
         </div>
 
         <div className='row mt-5 px-5 gy-4 text-center' >
-        {isSuccess&& data.statusText==="ok"&& (
-          data.activities?.map(activity=>(
+        {isSuccess&& data?.statusText==="ok"&& (
+          data?.activities?.map(activity=>(
+            <Suspense key={activity.id} fallback={<HomeSkeleton count={data.activities.length}/>}>
     <ActivityCard  key={activity._id} activity={activity} />
+
+            </Suspense>
 
           ))
         )}
@@ -43,3 +48,9 @@ const Home = () => {
 }
 
 export default Home
+
+function delay(promise) {
+  return new Promise(resolve => {
+    setTimeout(resolve, 5000);
+  }).then(() => promise);
+}
