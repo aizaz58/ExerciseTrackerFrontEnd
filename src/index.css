@@ -109,3 +109,12 @@
 }
 
 .min-w-60 {min-width: 60%;}
+
+.item {
+  width: 56%;
+  overflow: visible;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}

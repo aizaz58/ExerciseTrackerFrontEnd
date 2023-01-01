@@ -31,19 +31,15 @@ const {activity} = useGetAllActivitiesQuery(undefined, {
   
   
   return (
-    <div class="row mt-5 px-5">
+    <div className="row mt-5 px-5">
     { activity&& 
    <ActivityDetailCard {...activity}/>
     }
  
   {showForm&& <motion.div 
- animate={{
-      scale: [1, 2, 2, 1, 1],
-      rotate: [0, 0, 270, 270, 0],
-      borderRadius: ["20%", "20%", "50%", "50%", "20%"],
-    }}
-  class="col-12 px-0">
-        <div class="form-section pt-5 mt-5">
+ initial={{opacity:0,y:"-100vh"}} animate={{y:0,opacity:1}} transition={{duration:2, type:"spring",stiffness:300}} 
+  className="col-12 px-0">
+        <div className="form-section pt-5 mt-5">
         <ActivityForm origin='edit'  activity= {activity}/>
         </div>
     </motion.div>}

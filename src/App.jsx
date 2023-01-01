@@ -15,7 +15,7 @@ import AddNewActivity from './pages/AddNewActivity'
 const App = () => {
   const router=createBrowserRouter([
     {
-      path:"/",
+      path:"/login",
       element:<Login/>,
       errorElement:<ErrorPage/>
     },
@@ -31,7 +31,7 @@ const App = () => {
       errorElement:<ErrorPage/>,
       children:[{
   
-        path:"/home",
+        path:"/",
         element:<Home/>
       },
       {

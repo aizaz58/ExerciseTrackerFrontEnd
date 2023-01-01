@@ -67,7 +67,7 @@ try {
     
   if(isSuccess){}
   if(isError){}
-  
+  debugger
     dispatch(setCredientials({accessToken,foundUser}))
     //setcredientials({email:null,password:null})
   toast.success(message)
@@ -104,21 +104,21 @@ try {
 
 
 return (
-    <div class="container-fluid bg-purple vh-100">
-    <div class="row">
-        <div class="col-6 d-flex align-items-center justify-content-center vh-100">
-            <div class="login-img-bg">
+    <div className="container-fluid bg-purple vh-100">
+    <div className="row">
+        <div className="col-6 d-flex align-items-center justify-content-center vh-100">
+            <div className="login-img-bg">
 
             </div>
         </div>
 
-        <div class="col-6 bg-white d-flex flex-column align-items-center justify-content-center vh-100">
-            <h2 class="fw-bold pb-4 txt-purple">Login</h2>
+        <div className="col-6 bg-white d-flex flex-column align-items-center justify-content-center vh-100">
+            <h2 className="fw-bold pb-4 txt-purple">Login</h2>
 
-            <form class="w-50" onSubmit={handleSubmit}>
-                <div class="mb-2">
-                  <label for="exampleInputEmail1" class="form-label">Email</label>
-                  <input ref={emailRef} type="email" name='email' class="form-control" id="exampleInputEmail1" value={credientials.email} onChange={handleChange}/>
+            <form className="w-50" onSubmit={handleSubmit}>
+                <div className="mb-2">
+                  <label for="exampleInputEmail1" className="form-label">Email</label>
+                  <input ref={emailRef} type="email" name='email' className="form-control" id="exampleInputEmail1" value={credientials.email} onChange={handleChange}/>
                    <div className="invalid-feedback">
                       <p>
                   {emailErrMsg?emailErrMsg:
@@ -129,9 +129,9 @@ return (
                     
                     </div>
                 </div>
-                <div class="mb-2">
-                  <label for="exampleInputPassword1" class="form-label">Password</label>
-                  <input ref={pwdRef} type={show?"text":"password"} name="password" class="form-control" id="exampleInputPassword1" value={credientials.password} onChange={handleChange}/>
+                <div className="mb-2">
+                  <label for="exampleInputPassword1" className="form-label">Password</label>
+                  <input ref={pwdRef} type={show?"text":"password"} name="password" className="form-control" id="exampleInputPassword1" value={credientials.password} onChange={handleChange}/>
                   <div role="button" onMouseDown={handleShowPwd} onMouseUp={handleShowPwd} >
                     {show?<AiFillEyeInvisible/>:<AiFillEye/>}
 
@@ -143,7 +143,7 @@ return (
                     
                     </div>
                 </div>
-                <button type="submit" class="btn btn-warning">{isLoading?<Watch
+                <button type="submit" className="btn btn-warning">{isLoading?<Watch
   height="20"
   width="20"
   radius="48"
@@ -154,7 +154,7 @@ return (
   visible={true}
 />:"Login"}</button>
                
-                <div class="form-text pt-5"> 
+                <div className="form-text pt-5"> 
                 <span>Donot have an account? </span>
                 <Link  to="/register">
                  <span className='txt-purple'>Sign Up</span> 

@@ -14,10 +14,14 @@ const {pathname}=useLocation()
     }
     useEffect(() => {
     if(isSuccess){
-        navigate("/")
+        navigate("/login")
     }
     }, [isSuccess,navigate])
     
+    
+
+
+
   return (
     <>
 
@@ -33,7 +37,7 @@ const {pathname}=useLocation()
                         <p className="mb-0 pe-3">{user&& `${user.firstName} ${user.lastName}`}</p>
                     </div>
 
-                    <div>
+                    <div role="button">
                     <Avatar className='user-img rounded-circle'size='60' name={user &&`${user.firstName} ${user.lastName}`} />
                         {/* <img className="user-img" src="./images/user-m.png"/> */}
                     </div>
@@ -42,8 +46,14 @@ const {pathname}=useLocation()
         </div>
 </div>
 
+
     </>
   )
 }
 
 export default NavBar
+
+
+
+
+
