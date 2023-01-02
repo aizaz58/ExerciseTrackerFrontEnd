@@ -66,13 +66,12 @@ if(!nameRegex.test(formData.lastName)){
    passwordRef.current.classList.remove("is-invalid")
    passwordRef.current.classList.add("is-valid")
  }
- debugger
  try {
    const {message,foundUser,accessToken}=await registerUser({...formData}).unwrap()
    toast.success(message);
      
        dispatch(setCredientials({foundUser,accessToken}))
-       navigate("/home")
+       navigate("/")
      
   
  } catch (error) {

@@ -8,7 +8,6 @@ const RootLayOut = () => {
     const navigate=useNavigate()
     const token=useSelector(selectCurrentToken)
     useEffect(()=>{
-        debugger
         if(!token){
 
             navigate("/login")

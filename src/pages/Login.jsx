@@ -71,7 +71,7 @@ try {
     dispatch(setCredientials({accessToken,foundUser}))
     //setcredientials({email:null,password:null})
   toast.success(message)
-    navigate("/home")
+    navigate("/")
   
 
   

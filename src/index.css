@@ -118,3 +118,16 @@
   stroke-linejoin: round;
   stroke-linecap: round;
 }
+
+.ls-lg {letter-spacing: 0.9px;}
+
+.mt-100{
+  margin-top: 12vh;
+}
+
+.logout-div {
+  position: absolute;
+  top: 4rem;
+  right: 3rem;
+  cursor: pointer;
+}
