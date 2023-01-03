@@ -10,7 +10,7 @@ export const activityApiSlice = apiSlice.injectEndpoints({
       validateStatus: (response, result) => {
         return response.status == 200 && !result.isError;
       },
-      keepUnusedDataFor: 100,
+      keepUnusedDataFor: 10,
       transformResponse: (responseData) => {
         const statusText = responseData.statusText;
         const activities = responseData.activities.map((activity) => {

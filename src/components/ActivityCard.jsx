@@ -22,7 +22,7 @@ const ActivityCard = ({ activity }) => {
 
     return (
         <>
-            <motion.div whileHover={{ scale: 1.05, boxShadow: 0.5 }} transition={{ duration: 0.4 }} whileTap={{ scale: 0.8 }} className="col-3" onClick={handleClick}>
+            <motion.div whileHover={{ scale: 1.05}} transition={{ duration: 0.4 }} whileTap={{ scale: 0.8 }} className="col-3" onClick={handleClick}>
                 <div className="activity-card d-flex flex-column justify-content-between">
                     <div className="d-flex align-items-center justify-content-between">
                         <div className='d-flex gap-2'>

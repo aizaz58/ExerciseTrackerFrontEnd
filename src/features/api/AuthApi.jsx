@@ -3,7 +3,7 @@ import { setCredientials } from '../auth/authSlice'
 
 
 const baseQuery=fetchBaseQuery({
-    baseUrl:"http://localhost:3100",
+    baseUrl:"https://wild-pear-clownfish-vest.cyclic.app",
     credentials:"include",
     prepareHeaders:(headers,{getState})=>{
         console.log(getState())
